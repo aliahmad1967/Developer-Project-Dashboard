@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevLaunch | Project Ideas Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #22d3ee;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 2px 2px, #1e293b 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .card-glow {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-8px);
+        }
+        .terminal-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        .terminal-box::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(rgba(34, 211, 238, 0.03) 50%, transparent 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        .badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .filter-btn.active {
+            background-color: var(--accent);
+            color: var(--bg-deep);
+            border-color: var(--accent);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12">
+
+    <!-- Header Section -->
+    <header class="max-w-6xl mx-auto mb-12">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <h1 class="text-5xl font-extrabold tracking-tight text-white mb-3">
+                    Project <span class="text-cyan-400">Roadmap</span>
+                </h1>
+                <p class="text-slate-400 max-w-lg text-lg">Ignite your career with 20 battle-tested project ideas and technical blueprints.</p>
+            </div>
+            <div class="flex flex-col gap-3">
+                <input type="text" id="search" placeholder="Search projects or tech..." 
+                    class="bg-slate-800 border border-slate-700 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm w-full md:w-80 transition-all">
+                <div id="filter-container" class="flex flex-wrap gap-2">
+                    <button class="filter-btn active px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold transition-all" data-filter="all">All</button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="AI / SaaS">AI</button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="FinTech">FinTech</button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="Cybersecurity">Security</button>
+                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="DevTools">DevTools</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Grid -->
+    <main id="project-grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Cards injected by JS -->
+    </main>
+
+    <script>
+        const projects = [
+            {
+                title: "AI Prompt Marketplace",
+                tagline: "A platform to buy/sell optimized LLM prompts.",
+                status: "High Priority",
+                category: "AI / SaaS",
+                mvp: ["User Auth", "Prompt Search", "Stripe Integration"],
+                challenge: "Ranking prompts based on semantic similarity and user success metrics.",
+                tech: ["React", "Node.js", "PostgreSQL"]
+            },
+            {
+                title: "DevQuest Gamified Roadmap",
+                tagline: "Track your learning progress as an RPG character.",
+                status: "In Progress",
+                category: "EdTech",
+                mvp: ["Skill Tree", "XP System", "GitHub API"],
+                challenge: "Scaling complex SVG skill trees while maintaining mobile responsiveness.",
+                tech: ["Next.js", "Tailwind", "Supabase"]
+            },
+            {
+                title: "EcoTrack API",
+                tagline: "Calculate carbon footprints for logistics.",
+                status: "Idea",
+                category: "FinTech",
+                mvp: ["API Docs", "Distance Logic", "PDF Export"],
+                challenge: "Optimizing geospatial calculations for large-scale logistics datasets.",
+                tech: ["Python", "FastAPI", "Docker"]
+            },
+            {
+                title: "Portfolio CMS",
+                tagline: "Headless CMS designed specifically for developers.",
+                status: "Live",
+                category: "DevTools",
+                mvp: ["Markdown Editor", "Image Opt", "Webhooks"],
+                challenge: "Building a high-performance live preview engine for nested Markdown components.",
+                tech: ["Vue.js", "GraphQL", "Redis"]
+            },
+            {
+                title: "Secure Vault Pro",
+                tagline: "E2E encrypted file sharing for sensitive docs.",
+                status: "New Idea",
+                category: "Cybersecurity",
+                mvp: ["AES-256 Encryption", "Auto-destruct Links", "Audit Logs"],
+                challenge: "Managing client-side key derivation without exposing secrets to the server.",
+                tech: ["Web Crypto API", "Go", "AWS S3"]
+            },
+            {
+                title: "Code Review Buddy",
+                tagline: "AI assistant that reviews PRs for security flaws.",
+                status: "Idea",
+                category: "AI / SaaS",
+                mvp: ["GitHub Action", "LLM Integration", "Security Scorecard"],
+                challenge: "Minimizing false positives in security vulnerability detection using context-aware AI.",
+                tech: ["TypeScript", "OpenAI API", "GitHub API"]
+            },
+            {
+                title: "Defi Pulse Dashboard",
+                tagline: "Real-time analytics for decentralized finance protocols.",
+                status: "In Progress",
+                category: "FinTech",
+                mvp: ["Wallet Connect", "Live Charts", "Token Swap Mockup"],
+                challenge: "Syncing real-time blockchain event listeners without causing UI lag.",
+                tech: ["Solidity", "Ethers.js", "React"]
+            },
+            {
+                title: "BugBounty Hunter UI",
+                tagline: "Aggregated dashboard for multiple bug bounty platforms.",
+                status: "High Priority",
+                category: "Cybersecurity",
+                mvp: ["Platform Scrapers", "Severity Filtering", "Reward Tracker"],
+                challenge: "Standardizing disparate data schemas from various bug bounty APIs.",
+                tech: ["Node.js", "Cheerio", "MongoDB"]
+            },
+            {
+                title: "Interview Cracker",
+                tagline: "AI-powered mock interview simulator with audio feedback.",
+                status: "Idea",
+                category: "EdTech",
+                mvp: ["Speech-to-Text", "AI Logic", "Performance Report"],
+                challenge: "Processing real-time audio streams and generating contextual feedback instantly.",
+                tech: ["Python", "Whisper API", "WebSockets"]
+            },
+            {
+                title: "LogViewer Ultra",
+                tagline: "Ultra-fast log visualizer for distributed systems.",
+                status: "Live",
+                category: "DevTools",
+                mvp: ["Log Streaming", "Error Grouping", "Slack Alerts"],
+                challenge: "Handling 10,000+ log lines per second without crashing the browser tab.",
+                tech: ["Rust (Wasm)", "React", "ELK Stack"]
+            },
+            {
+                title: "Zero-Knowledge Polls",
+                tagline: "Anonymous voting system using ZK-proofs.",
+                status: "Idea",
+                category: "Cybersecurity",
+                mvp: ["ZK-Circuit", "Voting UI", "Proof Verification"],
+                challenge: "Implementing complex ZK-proof generation on low-power mobile browsers.",
+                tech: ["Circom", "SnarkJS", "SolidJS"]
+            },
+            {
+                title: "BudgetFlow AI",
+                tagline: "Personal finance tracker that predicts future expenses.",
+                status: "In Progress",
+                category: "FinTech",
+                mvp: ["Plaid Integration", "Expense Categorization", "Forecast UI"],
+                challenge: "Training a lightweight time-series model on limited personal financial data.",
+                tech: ["TensorFlow.js", "Next.js", "Plaid API"]
+            },
+            {
+                title: "DeployStack",
+                tagline: "One-click deployment tool for complex microservices.",
+                status: "Idea",
+                category: "DevTools",
+                mvp: ["Terraform Scripts", "UI Dashboard", "K8s Integration"],
+                challenge: "Abstracting complex Infrastructure-as-Code into a simple, non-expert UI.",
+                tech: ["Go", "Terraform", "React"]
+            },
+            {
+                title: "HealthPulse",
+                tagline: "Aggregates wearable data into a single health score.",
+                status: "New Idea",
+                category: "HealthTech",
+                mvp: ["OAuth Connectors", "Data Normalization", "Trend Analysis"],
+                challenge: "Normalizing health data metrics across different manufacturer APIs (Apple, Fitbit, Garmin).",
+                tech: ["Express", "D3.js", "PostgreSQL"]
+            },
+            {
+                title: "Smart Contract Auditor",
+                tagline: "Automated static analysis for Solidity contracts.",
+                status: "Idea",
+                category: "Cybersecurity",
+                mvp: ["AST Parser", "Vulnerability Patterns", "PDF Report"],
+                challenge: "Building a reliable parser that can detect reentrancy attacks in complex code paths.",
+                tech: ["Rust", "Solc", "React"]
+            },
+            {
+                title: "VideoStreamer SDK",
+                tagline: "Low-latency video streaming for developer apps.",
+                status: "Live",
+                category: "SaaS",
+                mvp: ["WebRTC Wrapper", "Screen Sharing", "Recording API"],
+                challenge: "Reducing end-to-end latency below 200ms for global users.",
+                tech: ["WebRTC", "Socket.io", "Node.js"]
+            },
+            {
+                title: "CloudCost Optimizer",
+                tagline: "Scan AWS resources and suggest cost-saving measures.",
+                status: "Idea",
+                category: "DevTools",
+                mvp: ["AWS SDK Integration", "Usage Analysis", "Actionable Alerts"],
+                challenge: "Calculating cost savings across complex reserved instance and spot instance pricing models.",
+                tech: ["Go", "AWS SDK", "Vue"]
+            },
+            {
+                title: "DeepFake Detector",
+                tagline: "Browser extension that flags suspicious video content.",
+                status: "Idea",
+                category: "AI / Security",
+                mvp: ["Browser Ext", "ML Inference", "Warning UI"],
+                challenge: "Running heavy ML models in a browser extension without impacting page performance.",
+                tech: ["PyTorch", "Chrome API", "Wasm"]
+            },
+            {
+                title: "NFT Ticket Master",
+                tagline: "Fraud-proof event ticketing system using NFTs.",
+                status: "In Progress",
+                category: "Web3 / FinTech",
+                mvp: ["Minting UI", "QR Code Verification", "Secondary Market"],
+                challenge: "Preventing 'ticket scalping' using smart contract-enforced royalty and price caps.",
+                tech: ["Polygon", "Hardhat", "React Native"]
+            },
+            {
+                title: "SchemaDesigner",
+                tagline: "Visual database modeler with auto-migration generation.",
+                status: "Live",
+                category: "DevTools",
+                mvp: ["ERD Canvas", "SQL Export", "Prisma Integration"],
+                challenge: "Syncing a visual canvas state with real-time code generation for multiple SQL dialects.",
+                tech: ["React Flow", "TypeScript", "Prisma"]
+            }
+        ];
+
+        let currentFilter = "all";
+        let searchQuery = "";
+
+        function renderProjects() {
+            const grid = document.getElementById('project-grid');
+            grid.innerHTML = "";
+
+            const filtered = projects.filter(p => {
+                const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                    p.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                                    p.category.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesFilter = currentFilter === "all" || p.category.includes(currentFilter);
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-20 text-slate-500">No projects found matching your criteria.</div>`;
+                return;
+            }
+
+            filtered.forEach((project, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl flex flex-col justify-between card-glow animate-card";
+                card.style.animationDelay = `${index * 0.05}s`;
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-5">
+                            <span class="badge px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
+                                ${project.category}
+                            </span>
+                            <span class="text-[10px] text-slate-500 font-bold tracking-widest uppercase mono">${project.status}</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold mb-2 text-white">${project.title}</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">${project.tagline}</p>
+
+                        <div class="mb-6">
+                            <h4 class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-black mb-4 flex items-center">
+                                <span class="w-8 h-[1px] bg-slate-700 mr-2"></span> MVP Scope
+                            </h4>
+                            <ul class="space-y-2">
+                                ${project.mvp.map(feat => `
+                                    <li class="flex items-start text-sm text-slate-300 group">
+                                        <div class="mt-1.5 mr-3 w-1.5 h-1.5 rounded-full bg-cyan-500 group-hover:scale-125 transition-transform"></div>
+                                        ${feat}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="terminal-box p-4 rounded-lg mb-6 group">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-[10px] mono text-cyan-400 font-bold tracking-tighter">~/main/challenge.log</h4>
+                                <div class="flex gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-slate-700"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-slate-700"></div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-400 mono leading-relaxed border-l-2 border-slate-700 pl-3">
+                                <span class="text-cyan-600 mr-1">></span> ${project.challenge}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-5 border-t border-slate-700/50">
+                        ${project.tech.map(t => `
+                            <span class="text-[10px] mono bg-slate-900/80 px-2 py-1 rounded border border-slate-700 text-slate-400 hover:text-cyan-400 hover:border-cyan-900 transition-colors">
+                                ${t}
+                            </span>
+                        `).join('')}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Event Listeners
+        document.getElementById('search').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderProjects();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('active', 'text-bg-deep');
+                    b.classList.add('text-slate-400');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('text-slate-400');
+                currentFilter = btn.getAttribute('data-filter');
+                renderProjects();
+            });
+        });
+
+        // Initial Render
+        renderProjects();
+    </script>
+</body>
+</html>
