@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevLaunch | Project Ideas Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-deep: #0f172a;
@@ -14,6 +17,7 @@
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
         }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-deep);
@@ -22,50 +26,70 @@
             background-image: radial-gradient(circle at 2px 2px, #1e293b 1px, transparent 0);
             background-size: 40px 40px;
         }
+
         .mono {
             font-family: 'JetBrains Mono', monospace;
         }
+
         .card-glow {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
         .card-glow:hover {
             box-shadow: 0 0 30px rgba(34, 211, 238, 0.1);
             border-color: var(--accent);
             transform: translateY(-8px);
         }
+
         .terminal-box {
             background-color: rgba(0, 0, 0, 0.3);
             border-left: 3px solid var(--accent);
             position: relative;
             overflow: hidden;
         }
+
         .terminal-box::after {
             content: '';
             position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
             background: linear-gradient(rgba(34, 211, 238, 0.03) 50%, transparent 50%);
             background-size: 100% 4px;
             pointer-events: none;
         }
+
         .badge {
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
         .filter-btn.active {
             background-color: var(--accent);
             color: var(--bg-deep);
             border-color: var(--accent);
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .animate-card {
             animation: fadeIn 0.5s ease forwards;
         }
     </style>
 </head>
+
 <body class="p-6 md:p-12">
 
     <!-- Header Section -->
@@ -75,17 +99,28 @@
                 <h1 class="text-5xl font-extrabold tracking-tight text-white mb-3">
                     Project <span class="text-cyan-400">Roadmap</span>
                 </h1>
-                <p class="text-slate-400 max-w-lg text-lg">Ignite your career with 20 battle-tested project ideas and technical blueprints.</p>
+                <p class="text-slate-400 max-w-lg text-lg">Ignite your career with 20 battle-tested project ideas and
+                    technical blueprints.</p>
             </div>
             <div class="flex flex-col gap-3">
-                <input type="text" id="search" placeholder="Search projects or tech..." 
+                <input type="text" id="search" placeholder="Search projects or tech..."
                     class="bg-slate-800 border border-slate-700 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm w-full md:w-80 transition-all">
                 <div id="filter-container" class="flex flex-wrap gap-2">
-                    <button class="filter-btn active px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold transition-all" data-filter="all">All</button>
-                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="AI / SaaS">AI</button>
-                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="FinTech">FinTech</button>
-                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="Cybersecurity">Security</button>
-                    <button class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all" data-filter="DevTools">DevTools</button>
+                    <button
+                        class="filter-btn active px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold transition-all"
+                        data-filter="all">All</button>
+                    <button
+                        class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all"
+                        data-filter="AI / SaaS">AI</button>
+                    <button
+                        class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all"
+                        data-filter="FinTech">FinTech</button>
+                    <button
+                        class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all"
+                        data-filter="Cybersecurity">Security</button>
+                    <button
+                        class="filter-btn px-3 py-1 rounded-full border border-slate-700 text-xs font-semibold text-slate-400 hover:border-slate-500 transition-all"
+                        data-filter="DevTools">DevTools</button>
                 </div>
             </div>
         </div>
@@ -100,7 +135,9 @@
         const projects = [
             {
                 title: "AI Prompt Marketplace",
+                titleAr: "سوق أوامر الذكاء الاصطناعي",
                 tagline: "A platform to buy/sell optimized LLM prompts.",
+                descriptionAr: "منصة لبيع وشراء أوامر نماذج اللغة الكبيرة المحسّنة.",
                 status: "High Priority",
                 category: "AI / SaaS",
                 mvp: ["User Auth", "Prompt Search", "Stripe Integration"],
@@ -109,7 +146,9 @@
             },
             {
                 title: "DevQuest Gamified Roadmap",
+                titleAr: "خارطة طريق DevQuest القائمة على اللعب",
                 tagline: "Track your learning progress as an RPG character.",
+                descriptionAr: "تتبع تقدمك في التعلم كشخصية في لعبة تقمص أدوار.",
                 status: "In Progress",
                 category: "EdTech",
                 mvp: ["Skill Tree", "XP System", "GitHub API"],
@@ -118,7 +157,9 @@
             },
             {
                 title: "EcoTrack API",
+                titleAr: "واجهة برمجة تطبيقات EcoTrack",
                 tagline: "Calculate carbon footprints for logistics.",
+                descriptionAr: "حساب البصمة الكربونية للخدمات اللوجستية.",
                 status: "Idea",
                 category: "FinTech",
                 mvp: ["API Docs", "Distance Logic", "PDF Export"],
@@ -127,7 +168,9 @@
             },
             {
                 title: "Portfolio CMS",
+                titleAr: "نظام إدارة محتوى لعرض الأعمال",
                 tagline: "Headless CMS designed specifically for developers.",
+                descriptionAr: "نظام إدارة محتوى مهيأ خصيصاً للمطورين.",
                 status: "Live",
                 category: "DevTools",
                 mvp: ["Markdown Editor", "Image Opt", "Webhooks"],
@@ -136,7 +179,9 @@
             },
             {
                 title: "Secure Vault Pro",
+                titleAr: "الخزنة الآمنة برو",
                 tagline: "E2E encrypted file sharing for sensitive docs.",
+                descriptionAr: "مشاركة ملفات مشفرة من طرف إلى طرف للمستندات الحساسة.",
                 status: "New Idea",
                 category: "Cybersecurity",
                 mvp: ["AES-256 Encryption", "Auto-destruct Links", "Audit Logs"],
@@ -145,7 +190,9 @@
             },
             {
                 title: "Code Review Buddy",
+                titleAr: "رفيق مراجعة الكود",
                 tagline: "AI assistant that reviews PRs for security flaws.",
+                descriptionAr: "مساعد ذكي يراجع طلبات السحب للكشف عن الثغرات الأمنية.",
                 status: "Idea",
                 category: "AI / SaaS",
                 mvp: ["GitHub Action", "LLM Integration", "Security Scorecard"],
@@ -154,7 +201,9 @@
             },
             {
                 title: "Defi Pulse Dashboard",
+                titleAr: "لوحة تحكم Defi Pulse",
                 tagline: "Real-time analytics for decentralized finance protocols.",
+                descriptionAr: "تحليلات فورية لبروتوكولات التمويل اللامركزي.",
                 status: "In Progress",
                 category: "FinTech",
                 mvp: ["Wallet Connect", "Live Charts", "Token Swap Mockup"],
@@ -163,7 +212,9 @@
             },
             {
                 title: "BugBounty Hunter UI",
+                titleAr: "واجهة صائد مكافآت الثغرات",
                 tagline: "Aggregated dashboard for multiple bug bounty platforms.",
+                descriptionAr: "لوحة تحكم مجمعة لعدة منصات لمكافآت الثغرات.",
                 status: "High Priority",
                 category: "Cybersecurity",
                 mvp: ["Platform Scrapers", "Severity Filtering", "Reward Tracker"],
@@ -172,7 +223,9 @@
             },
             {
                 title: "Interview Cracker",
+                titleAr: "كسارة المقابلات",
                 tagline: "AI-powered mock interview simulator with audio feedback.",
+                descriptionAr: "محاكي مقابلات وهمية مدعوم بالذكاء الاصطناعي مع تعليقات صوتية.",
                 status: "Idea",
                 category: "EdTech",
                 mvp: ["Speech-to-Text", "AI Logic", "Performance Report"],
@@ -181,7 +234,9 @@
             },
             {
                 title: "LogViewer Ultra",
+                titleAr: "عارض السجلات فائق السرعة",
                 tagline: "Ultra-fast log visualizer for distributed systems.",
+                descriptionAr: "عارض سجلات فائق السرعة للأنظمة الموزعة.",
                 status: "Live",
                 category: "DevTools",
                 mvp: ["Log Streaming", "Error Grouping", "Slack Alerts"],
@@ -190,7 +245,9 @@
             },
             {
                 title: "Zero-Knowledge Polls",
+                titleAr: "استطلاعات المعرفة الصفرية",
                 tagline: "Anonymous voting system using ZK-proofs.",
+                descriptionAr: "نظام تصويت مجهول باستخدام إثباتات المعرفة الصفرية.",
                 status: "Idea",
                 category: "Cybersecurity",
                 mvp: ["ZK-Circuit", "Voting UI", "Proof Verification"],
@@ -199,7 +256,9 @@
             },
             {
                 title: "BudgetFlow AI",
+                titleAr: "تدفق الميزانية الذكي",
                 tagline: "Personal finance tracker that predicts future expenses.",
+                descriptionAr: "متتبع للمالية الشخصية يتنبأ بالنفقات المستقبلية.",
                 status: "In Progress",
                 category: "FinTech",
                 mvp: ["Plaid Integration", "Expense Categorization", "Forecast UI"],
@@ -208,7 +267,9 @@
             },
             {
                 title: "DeployStack",
+                titleAr: "مكدس النشر",
                 tagline: "One-click deployment tool for complex microservices.",
+                descriptionAr: "أداة نشر بنقرة واحدة للخدمات المصغرة المعقدة.",
                 status: "Idea",
                 category: "DevTools",
                 mvp: ["Terraform Scripts", "UI Dashboard", "K8s Integration"],
@@ -217,7 +278,9 @@
             },
             {
                 title: "HealthPulse",
+                titleAr: "نبض الصحة",
                 tagline: "Aggregates wearable data into a single health score.",
+                descriptionAr: "يجمع بيانات الأجهزة القابلة للارتداء في درجة صحية واحدة.",
                 status: "New Idea",
                 category: "HealthTech",
                 mvp: ["OAuth Connectors", "Data Normalization", "Trend Analysis"],
@@ -226,7 +289,9 @@
             },
             {
                 title: "Smart Contract Auditor",
+                titleAr: "مدقق العقود الذكية",
                 tagline: "Automated static analysis for Solidity contracts.",
+                descriptionAr: "تحليل ثابت آلي لعقود Solidity.",
                 status: "Idea",
                 category: "Cybersecurity",
                 mvp: ["AST Parser", "Vulnerability Patterns", "PDF Report"],
@@ -235,7 +300,9 @@
             },
             {
                 title: "VideoStreamer SDK",
+                titleAr: "حزمة بث الفيديو",
                 tagline: "Low-latency video streaming for developer apps.",
+                descriptionAr: "بث فيديو بزمن وصول منخفض لتطبيقات المطورين.",
                 status: "Live",
                 category: "SaaS",
                 mvp: ["WebRTC Wrapper", "Screen Sharing", "Recording API"],
@@ -244,7 +311,9 @@
             },
             {
                 title: "CloudCost Optimizer",
+                titleAr: "محسن تكاليف السحابة",
                 tagline: "Scan AWS resources and suggest cost-saving measures.",
+                descriptionAr: "مسح موارد AWS واقتراح تدابير لتوفير التكاليف.",
                 status: "Idea",
                 category: "DevTools",
                 mvp: ["AWS SDK Integration", "Usage Analysis", "Actionable Alerts"],
@@ -253,7 +322,9 @@
             },
             {
                 title: "DeepFake Detector",
+                titleAr: "كاشف التزييف العميق",
                 tagline: "Browser extension that flags suspicious video content.",
+                descriptionAr: "إضافة متصفح تبلغ عن محتوى الفيديو المشبوه.",
                 status: "Idea",
                 category: "AI / Security",
                 mvp: ["Browser Ext", "ML Inference", "Warning UI"],
@@ -262,7 +333,9 @@
             },
             {
                 title: "NFT Ticket Master",
+                titleAr: "سيد تذاكر NFT",
                 tagline: "Fraud-proof event ticketing system using NFTs.",
+                descriptionAr: "نظام تذاكر أحداث محمي من الاحتيال باستخدام الرموز غير القابلة للاستبدال.",
                 status: "In Progress",
                 category: "Web3 / FinTech",
                 mvp: ["Minting UI", "QR Code Verification", "Secondary Market"],
@@ -271,7 +344,9 @@
             },
             {
                 title: "SchemaDesigner",
+                titleAr: "مصمم المخططات",
                 tagline: "Visual database modeler with auto-migration generation.",
+                descriptionAr: "مصمم نماذج قواعد بيانات مرئي مع إنشاء تلقائي للترحيل.",
                 status: "Live",
                 category: "DevTools",
                 mvp: ["ERD Canvas", "SQL Export", "Prisma Integration"],
@@ -288,9 +363,9 @@
             grid.innerHTML = "";
 
             const filtered = projects.filter(p => {
-                const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                    p.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                                    p.category.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    p.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    p.category.toLowerCase().includes(searchQuery.toLowerCase());
                 const matchesFilter = currentFilter === "all" || p.category.includes(currentFilter);
                 return matchesSearch && matchesFilter;
             });
@@ -304,7 +379,7 @@
                 const card = document.createElement('div');
                 card.className = "bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-6 rounded-2xl flex flex-col justify-between card-glow animate-card";
                 card.style.animationDelay = `${index * 0.05}s`;
-                
+
                 card.innerHTML = `
                     <div>
                         <div class="flex justify-between items-start mb-5">
@@ -315,7 +390,13 @@
                         </div>
                         
                         <h3 class="text-2xl font-bold mb-2 text-white">${project.title}</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">${project.tagline}</p>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">${project.tagline}</p>
+
+                         <!-- Arabic Content -->
+                        <div class="mb-6 pt-4 border-t border-slate-700/30 text-right" dir="rtl">
+                            <h3 class="text-xl font-bold mb-1 text-slate-200" style="font-family: 'Cairo', sans-serif;">${project.titleAr}</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed" style="font-family: 'Cairo', sans-serif;">${project.descriptionAr}</p>
+                        </div>
 
                         <div class="mb-6">
                             <h4 class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-black mb-4 flex items-center">
@@ -380,4 +461,5 @@
         renderProjects();
     </script>
 </body>
+
 </html>
